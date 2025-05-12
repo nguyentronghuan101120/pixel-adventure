@@ -46,7 +46,7 @@ class PixelAdventure extends FlameGame
       camera.viewport.add(GameJoystick(player: level.player));
     }
 
-    debugMode = true;
+    // debugMode = true;
   }
 
   // double timeElapsed = 0;

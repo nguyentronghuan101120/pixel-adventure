@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/tiles/
     - assets/images/Terrain/
+    - assets/images/Background/
     - assets/images/Main Characters/Ninja Frog/
     - assets/images/Main Characters/Pink Man/
     - assets/images/Main Characters/Virtual Guy/

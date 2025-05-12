@@ -1,11 +1,17 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
+import 'package:flame/text.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/environments/environment_block.dart';
 import 'package:pixel_adventure/components/environments/environment_platform.dart';
+import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
+import 'package:pixel_adventure/game/pixel_adventure.dart';
 
-class Level extends World {
+class Level extends World with HasGameReference<PixelAdventure> {
   late TiledComponent level;
 
   Level({
@@ -26,6 +32,8 @@ class Level extends World {
       Vector2.all(16),
     );
     add(level);
+    _createBackground();
+
     _loadSpawnpoints();
     _loadCollisions();
   }
@@ -105,6 +113,40 @@ class Level extends World {
         blocks.add(block);
         add(block);
         break;
+    }
+  }
+
+  void _createBackground() {
+    final int tileSize = 64;
+
+    final numberOfTilesX = (game.size.x / tileSize).ceil();
+    final numberOfTilesY = (game.size.y / tileSize).ceil() + 1;
+    final random = Random();
+
+    final background = level.tileMap.getLayer('background');
+    if (background != null) {
+      final backgroundColor = background.properties.getValue('backgroundColor');
+
+      if (backgroundColor == null) return;
+
+      for (int x = 0; x < numberOfTilesX; x++) {
+        for (int y = 0; y < numberOfTilesY; y++) {
+          // Generate a random direction vector with both x and y components
+          // Each component is randomly positive or negative, and has a magnitude up to 20
+          final direction = Vector2(
+            (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
+            (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
+          );
+
+          final backgroundTile = BackgroundTile(
+            color: BackgroundColor.values.byName(backgroundColor),
+            position: Vector2(x * tileSize.toDouble(), y * tileSize.toDouble()),
+            velocity: direction,
+          );
+
+          add(backgroundTile);
+        }
+      }
     }
   }
 }
