@@ -1,14 +1,16 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:flame/text.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/environments/environment_block.dart';
 import 'package:pixel_adventure/components/environments/environment_platform.dart';
+import 'package:pixel_adventure/components/fruit.dart';
 import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
+import 'package:pixel_adventure/configs/fruit_config.dart';
+import 'package:pixel_adventure/configs/spawnpoint_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class Level extends World with HasGameReference<PixelAdventure> {
@@ -21,9 +23,6 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
   final Character player;
   final int levelNumber;
-
-  final List<EnvironmentPlatform> platforms = [];
-  final List<EnvironmentBlock> blocks = [];
 
   @override
   void onLoad() async {
@@ -46,12 +45,24 @@ class Level extends World with HasGameReference<PixelAdventure> {
     }
 
     for (final spawnpoint in spawnpointsLayer.objects) {
-      switch (spawnpoint.name) {
-        case 'player':
+      final SpawnpointType type =
+          SpawnpointType.values.byName(spawnpoint.class_);
+
+      switch (type) {
+        case SpawnpointType.character:
           player.position = spawnpoint.position;
           add(player);
           break;
-        default:
+
+        case SpawnpointType.fruits:
+          final fruit = Fruit(
+            position: spawnpoint.position,
+            size: spawnpoint.size,
+            fruit: FruitName.values.byName(spawnpoint.name),
+          );
+
+          add(fruit);
+
           break;
       }
     }
@@ -92,7 +103,6 @@ class Level extends World with HasGameReference<PixelAdventure> {
           position: collision.position,
           size: Vector2(collision.width, collision.height),
         );
-        platforms.add(platform);
         add(platform);
         break;
     }
@@ -110,7 +120,6 @@ class Level extends World with HasGameReference<PixelAdventure> {
           size: Vector2(collision.width, collision.height),
           type: type,
         );
-        blocks.add(block);
         add(block);
         break;
     }
