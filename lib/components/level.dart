@@ -117,10 +117,10 @@ class Level extends World with HasGameReference<PixelAdventure> {
   }
 
   void _createBackground() {
-    final int tileSize = 64;
+    final double tileSize = 64;
 
-    final numberOfTilesX = (game.size.x / tileSize).ceil();
-    final numberOfTilesY = (game.size.y / tileSize).ceil() + 1;
+    final numberOfTilesX = (game.size.x / tileSize).ceil() + 2;
+    final numberOfTilesY = (game.size.y / tileSize).ceil() + 2;
     final random = Random();
 
     final background = level.tileMap.getLayer('background');
@@ -129,15 +129,14 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
       if (backgroundColor == null) return;
 
+      // Generate a single random direction vector for all tiles
+      final direction = Vector2(
+        (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
+        (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
+      );
+
       for (int x = 0; x < numberOfTilesX; x++) {
         for (int y = 0; y < numberOfTilesY; y++) {
-          // Generate a random direction vector with both x and y components
-          // Each component is randomly positive or negative, and has a magnitude up to 20
-          final direction = Vector2(
-            (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
-            (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
-          );
-
           final backgroundTile = BackgroundTile(
             color: BackgroundColor.values.byName(backgroundColor),
             position: Vector2(x * tileSize.toDouble(), y * tileSize.toDouble()),

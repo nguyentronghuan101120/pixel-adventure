@@ -7,13 +7,14 @@ import 'package:pixel_adventure/game/pixel_adventure.dart';
 class BackgroundTile extends SpriteComponent
     with HasGameReference<PixelAdventure> {
   final BackgroundColor color;
+  final Vector2 velocity;
   BackgroundTile({
     required Vector2 position,
     required this.color,
-    required Vector2 velocity,
+    required this.velocity,
   }) : super(position: position);
 
-  final double scrollSpeed = 0.4;
+  final double _scrollSpeed = 2;
 
   @override
   FutureOr<void> onLoad() {
@@ -28,7 +29,7 @@ class BackgroundTile extends SpriteComponent
 
   @override
   void update(double dt) {
-    position.y += scrollSpeed;
+    position += velocity * dt * _scrollSpeed;
 
     // If the tile moves below the bottom edge of the screen, wrap it to the top
     if (position.y > game.size.y) position.y = -size.y;
