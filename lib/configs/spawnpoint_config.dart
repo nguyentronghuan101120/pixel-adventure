@@ -1,4 +1,5 @@
 enum SpawnpointType {
   character,
-  fruits,
+  fruit,
+  trap,
 }

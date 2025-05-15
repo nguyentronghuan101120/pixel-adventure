@@ -7,10 +7,12 @@ import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/environments/environment_block.dart';
 import 'package:pixel_adventure/components/environments/environment_platform.dart';
 import 'package:pixel_adventure/components/fruit.dart';
+import 'package:pixel_adventure/components/trap.dart';
 import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
 import 'package:pixel_adventure/configs/spawnpoint_config.dart';
+import 'package:pixel_adventure/configs/trap_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class Level extends World with HasGameReference<PixelAdventure> {
@@ -54,7 +56,7 @@ class Level extends World with HasGameReference<PixelAdventure> {
           add(player);
           break;
 
-        case SpawnpointType.fruits:
+        case SpawnpointType.fruit:
           final fruit = Fruit(
             position: spawnpoint.position,
             size: spawnpoint.size,
@@ -63,6 +65,21 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
           add(fruit);
 
+          break;
+
+        case SpawnpointType.trap:
+          final moveRangeTiles =
+              spawnpoint.properties.getValue("moveRangeTiles");
+          final isVerticalMove =
+              spawnpoint.properties.getValue("isVerticalMove");
+          final trap = Trap(
+            position: spawnpoint.position,
+            size: spawnpoint.size,
+            type: TrapType.values.byName(spawnpoint.name),
+            moveRangeTiles: moveRangeTiles,
+            isVerticalMove: isVerticalMove,
+          );
+          add(trap);
           break;
       }
     }

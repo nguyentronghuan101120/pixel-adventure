@@ -15,10 +15,10 @@ class PixelAdventure extends FlameGame
   final Level level = Level(
     player: Character(
       characterConfig: CharacterConfig(
-        name: CharacterName.maskDude,
+        name: CharacterName.virtualGuy,
       ),
     ),
-    levelNumber: 1,
+    levelNumber: 2,
   );
 
   @override

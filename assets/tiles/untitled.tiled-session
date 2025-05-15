@@ -15,24 +15,26 @@
         },
         "level1.tmx": {
             "expandedObjectLayers": [
+                3,
                 2
             ],
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 1.4949,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 143,
-                "y": 220.99999999999997
+                "x": 371.5967623252392,
+                "y": 216.4024349454813
             }
         },
         "level2.tmx": {
             "expandedObjectLayers": [
+                3,
                 2
             ],
-            "scale": 1.1256,
+            "scale": 0.8874,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 606.3432835820895,
-                "y": 360.2523098791755
+                "x": 325.1070543159792,
+                "y": 242.84426414243856
             }
         },
         "level_01.tmx": {
@@ -75,6 +77,7 @@
         "level1.tmx"
     ],
     "project": "untitled.tiled-project",
+    "property.type": "int",
     "recentFiles": [
         "level1.tmx",
         "level2.tmx",
