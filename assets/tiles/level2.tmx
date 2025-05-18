@@ -36,7 +36,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="spawnpoints">
-  <object id="1" name="character" type="character" x="32" y="288" width="32" height="32"/>
+  <object id="1" name="character" type="character" x="48" y="288" width="32" height="32"/>
   <object id="9" name="saw" type="trap" x="118.224" y="287.425" width="32" height="32">
    <properties>
     <property name="isVerticalMove" type="bool" value="true"/>

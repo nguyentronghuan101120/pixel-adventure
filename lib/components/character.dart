@@ -10,46 +10,56 @@ import 'package:pixel_adventure/game/pixel_adventure.dart';
 class Character extends SpriteAnimationGroupComponent
     with HasGameReference<PixelAdventure>, KeyboardHandler, CollisionCallbacks {
   Character({
-    required this.characterConfig,
-  });
-
-  final CharacterConfig characterConfig;
+    required CharacterConfig characterConfig,
+  }) : _characterConfig = characterConfig;
+  final CharacterConfig _characterConfig;
   Vector2 velocity = Vector2.zero();
-  CharacterDirection direction = CharacterDirection.none;
+  CharacterDirection _direction = CharacterDirection.none;
   final double _gravity = 9.8;
   final double _terminalVelocity = 300;
-  bool isOnGround = false;
-  bool hasJumped = false;
+  bool _isOnGround = false;
+  bool _hasJumped = false;
+  late Vector2 _initialPosition;
+  bool _gotHit = false;
 
   @override
   void onLoad() {
     super.onLoad();
-    _loadAnimations();
-    add(RectangleHitbox(isSolid: true));
+    _animationLoad();
+    add(
+      RectangleHitbox(
+        size: Vector2(24, 26),
+        position: Vector2(4, size.y - 26),
+        isSolid: true,
+      ),
+    );
+    _initialPosition = position.clone();
   }
 
-  void _loadAnimations() {
+  void _animationLoad() {
     animations = {
       for (final state in CharacterState.values) state: _spriteAnimation(state),
     };
-
     current = CharacterState.idle;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _updatePlayerPosition(dt);
-    _applyGravity(dt);
-    _updateAnimationState();
+
+    if (!_gotHit) {
+      _updatePlayerPosition(dt);
+      _applyGravity(dt);
+      _updateAnimationState();
+    }
   }
 
   void _updatePlayerPosition(double dt) {
-    if (hasJumped) {
+    if (_hasJumped) {
       _jump(dt);
     }
 
-    if (!isOnGround && velocity.y > 0) {
+    if (!_isOnGround && velocity.y > 0) {
       current = CharacterState.fall;
     }
 
@@ -59,12 +69,12 @@ class Character extends SpriteAnimationGroupComponent
   void _applyGravity(double dt) {
     velocity.y += _gravity;
     velocity.y =
-        velocity.y.clamp(-characterConfig.jumpForce, _terminalVelocity);
+        velocity.y.clamp(-_characterConfig.jumpForce, _terminalVelocity);
     position.y += velocity.y * dt;
   }
 
   void _updateAnimationState() {
-    if (!isOnGround) {
+    if (!_isOnGround) {
       if (velocity.y < 0) {
         current = CharacterState.jump;
       } else if (velocity.y > 0) {
@@ -72,10 +82,10 @@ class Character extends SpriteAnimationGroupComponent
       }
     } else if (velocity.x > 0) {
       current = CharacterState.run;
-      direction = CharacterDirection.right;
+      _direction = CharacterDirection.right;
     } else if (velocity.x < 0) {
       current = CharacterState.run;
-      direction = CharacterDirection.left;
+      _direction = CharacterDirection.left;
     } else {
       current = CharacterState.idle;
     }
@@ -95,7 +105,7 @@ class Character extends SpriteAnimationGroupComponent
       _stop();
     }
 
-    hasJumped =
+    _hasJumped =
         event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space;
 
     return false;
@@ -135,7 +145,7 @@ class Character extends SpriteAnimationGroupComponent
         velocity.y = 0;
 
         if (fromTop) {
-          isOnGround = true;
+          _isOnGround = true;
         }
       }
     }
@@ -148,7 +158,7 @@ class Character extends SpriteAnimationGroupComponent
       if (!isHorizontalCollision && fromTop && isFalling && isOnTopOfPlatform) {
         y = other.y - width;
         velocity.y = 0;
-        isOnGround = true;
+        _isOnGround = true;
       }
     }
   }
@@ -174,34 +184,42 @@ class Character extends SpriteAnimationGroupComponent
   }
 
   SpriteAnimation _spriteAnimation(CharacterState state) {
+    final bool isSpecialAnimation = state == CharacterState.appearing ||
+        state == CharacterState.desapearing;
+    String fromCachePath =
+        "Main Characters/${_characterConfig.name.value}/${state.value} (32x32).png";
+    if (isSpecialAnimation) {
+      fromCachePath = "Main Characters/${state.value} (96x96).png";
+    }
+
     return SpriteAnimation.fromFrameData(
       game.images.fromCache(
-        'Main Characters/${characterConfig.name.value}/${state.value} (32x32).png',
+        fromCachePath,
       ),
       SpriteAnimationData.sequenced(
-        amount: state.animationSequenceAmount,
-        stepTime: characterConfig.stepTime,
-        textureSize: Vector2.all(32),
-      ),
+          amount: state.animationSequenceAmount,
+          stepTime: _characterConfig.stepTime,
+          textureSize: Vector2.all(isSpecialAnimation ? 96 : 32),
+          loop: !isSpecialAnimation),
     );
   }
 
   void _moveLeft() {
-    direction = CharacterDirection.left;
-    velocity.x = -characterConfig.speed;
+    _direction = CharacterDirection.left;
+    velocity.x = -_characterConfig.speed;
   }
 
   void _moveRight() {
-    velocity.x = characterConfig.speed;
+    velocity.x = _characterConfig.speed;
     current = CharacterState.run;
   }
 
   void _jump(double dt) {
-    if (!isOnGround) return;
+    if (!_isOnGround) return;
 
-    isOnGround = false;
+    _isOnGround = false;
 
-    velocity.y = -characterConfig.jumpForce;
+    velocity.y = -_characterConfig.jumpForce;
   }
 
   void _stop() {
@@ -211,11 +229,45 @@ class Character extends SpriteAnimationGroupComponent
   @override
   void render(Canvas canvas) {
     canvas.save();
-    if (direction == CharacterDirection.left) {
+    if (_direction == CharacterDirection.left) {
       canvas.translate(size.x, 0);
       canvas.scale(-1, 1);
     }
     super.render(canvas);
     canvas.restore();
+  }
+
+  void respawn() async {
+    if (_gotHit) return; // Prevent overlapping respawns
+    position = position - Vector2.all(32);
+    _gotHit = true;
+
+    current = CharacterState.desapearing;
+
+    await Future.delayed(
+      Duration(
+        milliseconds: CharacterState.desapearing.animationSequenceAmount * 50,
+      ),
+    );
+
+    // Reset position and state
+    position = _initialPosition - Vector2.all(32);
+    velocity = Vector2.zero();
+    _direction = CharacterDirection.none;
+    _isOnGround = false;
+    _hasJumped = false;
+
+    current = CharacterState.appearing;
+    scale.x = 1;
+    await Future.delayed(
+      Duration(
+        milliseconds: CharacterState.appearing.animationSequenceAmount * 50,
+      ),
+    );
+
+    position = _initialPosition;
+
+    _updateAnimationState();
+    _gotHit = false;
   }
 }

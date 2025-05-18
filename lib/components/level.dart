@@ -7,7 +7,7 @@ import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/environments/environment_block.dart';
 import 'package:pixel_adventure/components/environments/environment_platform.dart';
 import 'package:pixel_adventure/components/fruit.dart';
-import 'package:pixel_adventure/components/trap.dart';
+import 'package:pixel_adventure/components/traps/saw.dart';
 import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
@@ -72,7 +72,7 @@ class Level extends World with HasGameReference<PixelAdventure> {
               spawnpoint.properties.getValue("moveRangeTiles");
           final isVerticalMove =
               spawnpoint.properties.getValue("isVerticalMove");
-          final trap = Trap(
+          final trap = Saw(
             position: spawnpoint.position,
             size: spawnpoint.size,
             type: TrapType.values.byName(spawnpoint.name),

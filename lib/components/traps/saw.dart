@@ -1,13 +1,15 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/configs/trap_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 import 'dart:math' as math;
 
-class Trap extends SpriteAnimationComponent
-    with HasGameReference<PixelAdventure> {
-  Trap({
+class Saw extends SpriteAnimationComponent
+    with HasGameReference<PixelAdventure>, CollisionCallbacks {
+  Saw({
     required Vector2 position,
     required Vector2 size,
     required this.type,
@@ -31,6 +33,7 @@ class Trap extends SpriteAnimationComponent
     priority = -1;
     _loadAnimation();
 
+    add(CircleHitbox());
     return super.onLoad();
   }
 
@@ -50,7 +53,8 @@ class Trap extends SpriteAnimationComponent
     time += dt;
 
     const double tileSize = 16;
-    final offset = moveRangeTiles * tileSize * math.sin(time * moveSpeed + phaseOffset);
+    final offset =
+        moveRangeTiles * tileSize * math.sin(time * moveSpeed + phaseOffset);
 
     if (isVerticalMove) {
       position.y = originalPosition.y + offset;
@@ -59,5 +63,14 @@ class Trap extends SpriteAnimationComponent
     }
 
     super.update(dt);
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Character) {
+      other.respawn();
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 }

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level1.tmx",
+    "activeFile": "level2.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -15,14 +15,14 @@
         },
         "level1.tmx": {
             "expandedObjectLayers": [
-                3,
-                2
+                2,
+                3
             ],
             "scale": 1.4949,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 371.5967623252392,
-                "y": 216.4024349454813
+                "x": 320.0883002207506,
+                "y": 235.80172586795103
             }
         },
         "level2.tmx": {
@@ -30,11 +30,11 @@
                 3,
                 2
             ],
-            "scale": 0.8874,
+            "scale": 1.7389,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 325.1070543159792,
-                "y": 242.84426414243856
+                "x": 267.69796998102254,
+                "y": 225.71740755650126
             }
         },
         "level_01.tmx": {
@@ -74,7 +74,8 @@
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
-        "level1.tmx"
+        "level1.tmx",
+        "level2.tmx"
     ],
     "project": "untitled.tiled-project",
     "property.type": "int",

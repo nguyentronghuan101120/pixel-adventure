@@ -5,7 +5,9 @@ enum CharacterState {
   fall("Fall", 1),
   hit("Hit", 7),
   jump("Jump", 1),
-  wallJump("Wall Jump", 5);
+  wallJump("Wall Jump", 5),
+  appearing("Appearing", 7),
+  desapearing("Desappearing", 7);
 
   final String value;
   final int animationSequenceAmount;
