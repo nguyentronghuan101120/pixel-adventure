@@ -101,42 +101,6 @@ class Level extends World with HasGameReference<PixelAdventure> {
     }
   }
 
-  // void _loadSpawnpoinct(ObjectGroup objectGroup) {
-  //   for (final spawnpoint in spawnpointsLayer.objects) {
-  //     final SpawnpointType type =
-  //         SpawnpointType.values.byName(spawnpoint.class_);
-
-  //     switch (type) {
-  //       case SpawnpointType.character:
-  //         player.position = spawnpoint.position;
-  //         add(player);
-  //         break;
-
-  //       case SpawnpointType.fruit:
-  //         final fruit = Fruit(
-  //           position: spawnpoint.position,
-  //           size: spawnpoint.size,
-  //           fruit: FruitName.values.byName(spawnpoint.name),
-  //         );
-
-  //         add(fruit);
-
-  //         break;
-
-  //       case SpawnpointType.trap:
-  //         _createTraps(object: spawnpoint);
-  //         break;
-  //       case SpawnpointType.checkpoint:
-  //         final checkpoint = Checkpoint(
-  //           position: spawnpoint.position,
-  //           size: spawnpoint.size,
-  //         );
-  //         add(checkpoint);
-  //         break;
-  //     }
-  //   }
-  // }
-
   void _loadEnv(ObjectGroup objectGroup) {
     for (final object in objectGroup.objects) {
       final EnvironmentType type = EnvironmentType.values.byName(object.name);
