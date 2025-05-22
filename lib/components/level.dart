@@ -4,14 +4,16 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
-import 'package:pixel_adventure/components/environments/environment_block.dart';
-import 'package:pixel_adventure/components/environments/environment_platform.dart';
+import 'package:pixel_adventure/components/checkpoint.dart';
+import 'package:pixel_adventure/components/environment.dart';
 import 'package:pixel_adventure/components/fruit.dart';
+import 'package:pixel_adventure/components/traps/hole.dart';
 import 'package:pixel_adventure/components/traps/saw.dart';
 import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
-import 'package:pixel_adventure/configs/spawnpoint_config.dart';
+import 'package:pixel_adventure/configs/item_config.dart';
+import 'package:pixel_adventure/configs/level_configs.dart';
 import 'package:pixel_adventure/configs/trap_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
@@ -35,110 +37,116 @@ class Level extends World with HasGameReference<PixelAdventure> {
     add(level);
     _createBackground();
 
-    _loadSpawnpoints();
-    _loadCollisions();
+    final layers = level.tileMap.map.layers
+        .where((layer) => layer.type == LayerType.objectGroup);
+
+    for (final layer in layers) {
+      final objectGroup = level.tileMap.getLayer<ObjectGroup>(layer.name);
+      final classNameOfLayer = layer.class_;
+
+      if (objectGroup == null) {
+        throw Exception("No object group with name: ${layer.name}");
+      }
+
+      if (classNameOfLayer == null) {
+        throw Exception("No class name of layer ${layer.class_}");
+      }
+
+      switch (LevelEntities.values.byName(classNameOfLayer)) {
+        case LevelEntities.env:
+          _loadEnv(objectGroup);
+          break;
+        case LevelEntities.spawnpoint:
+          _loadSpawnpoint(objectGroup);
+          break;
+        case LevelEntities.trap:
+          _loadTrap(objectGroup);
+          break;
+        case LevelEntities.item:
+          _loadItem(objectGroup);
+          break;
+      }
+    }
   }
 
-  void _loadSpawnpoints() {
-    final spawnpointsLayer = level.tileMap.getLayer<ObjectGroup>('spawnpoints');
+  void _loadSpawnpoint(ObjectGroup objectGroup) {
+    final object = objectGroup.objects.first;
+    player.position = object.position;
+    add(player);
+  }
 
-    if (spawnpointsLayer == null) {
-      throw Exception('Spawnpoints layer not found');
-    }
+  void _loadItem(ObjectGroup objectGroup) {
+    for (final object in objectGroup.objects) {
+      final ItemType itemType = ItemType.values.byName(object.class_);
 
-    for (final spawnpoint in spawnpointsLayer.objects) {
-      final SpawnpointType type =
-          SpawnpointType.values.byName(spawnpoint.class_);
-
-      switch (type) {
-        case SpawnpointType.character:
-          player.position = spawnpoint.position;
-          add(player);
-          break;
-
-        case SpawnpointType.fruit:
+      switch (itemType) {
+        case ItemType.fruit:
           final fruit = Fruit(
-            position: spawnpoint.position,
-            size: spawnpoint.size,
-            fruit: FruitName.values.byName(spawnpoint.name),
+            position: object.position,
+            size: object.size,
+            fruit: FruitName.values.byName(object.name),
           );
 
           add(fruit);
 
           break;
-
-        case SpawnpointType.trap:
-          final moveRangeTiles =
-              spawnpoint.properties.getValue("moveRangeTiles");
-          final isVerticalMove =
-              spawnpoint.properties.getValue("isVerticalMove");
-          final trap = Saw(
-            position: spawnpoint.position,
-            size: spawnpoint.size,
-            type: TrapType.values.byName(spawnpoint.name),
-            moveRangeTiles: moveRangeTiles,
-            isVerticalMove: isVerticalMove,
+        case ItemType.checkpoint:
+          final checkpoint = Checkpoint(
+            position: object.position,
+            size: object.size,
           );
-          add(trap);
+          add(checkpoint);
           break;
       }
     }
   }
 
-  void _loadCollisions() {
-    final collisionsLayer = level.tileMap.getLayer<ObjectGroup>('collisions');
+  // void _loadSpawnpoinct(ObjectGroup objectGroup) {
+  //   for (final spawnpoint in spawnpointsLayer.objects) {
+  //     final SpawnpointType type =
+  //         SpawnpointType.values.byName(spawnpoint.class_);
 
-    if (collisionsLayer == null) {
-      throw Exception('Collisions layer not found');
-    }
+  //     switch (type) {
+  //       case SpawnpointType.character:
+  //         player.position = spawnpoint.position;
+  //         add(player);
+  //         break;
 
-    for (final collision in collisionsLayer.objects) {
-      if (collision.class_.isEmpty) {
-        return;
-      }
+  //       case SpawnpointType.fruit:
+  //         final fruit = Fruit(
+  //           position: spawnpoint.position,
+  //           size: spawnpoint.size,
+  //           fruit: FruitName.values.byName(spawnpoint.name),
+  //         );
 
-      final EnvironmentType type =
-          EnvironmentType.values.byName(collision.class_);
+  //         add(fruit);
 
-      switch (type) {
-        case EnvironmentType.platform:
-          _createPlatformCollision(collision: collision);
-          break;
-        case EnvironmentType.block:
-          _createBlockCollision(collision: collision);
-          break;
-      }
-    }
-  }
+  //         break;
 
-  void _createPlatformCollision({required TiledObject collision}) {
-    final EnvironmentPlatformEnum type =
-        EnvironmentPlatformEnum.values.byName(collision.name);
-    switch (type) {
-      case EnvironmentPlatformEnum.oneway:
-        final platform = EnvironmentPlatform(
-          position: collision.position,
-          size: Vector2(collision.width, collision.height),
-        );
-        add(platform);
-        break;
-    }
-  }
+  //       case SpawnpointType.trap:
+  //         _createTraps(object: spawnpoint);
+  //         break;
+  //       case SpawnpointType.checkpoint:
+  //         final checkpoint = Checkpoint(
+  //           position: spawnpoint.position,
+  //           size: spawnpoint.size,
+  //         );
+  //         add(checkpoint);
+  //         break;
+  //     }
+  //   }
+  // }
 
-  void _createBlockCollision({required TiledObject collision}) {
-    final EnvironmentBlockEnum type =
-        EnvironmentBlockEnum.values.byName(collision.name);
-    switch (type) {
-      case EnvironmentBlockEnum.solid:
-      case EnvironmentBlockEnum.ground:
-      case EnvironmentBlockEnum.boundary:
-        final block = EnvironmentBlock(
-          position: collision.position,
-          size: Vector2(collision.width, collision.height),
-          type: type,
-        );
-        add(block);
-        break;
+  void _loadEnv(ObjectGroup objectGroup) {
+    for (final object in objectGroup.objects) {
+      final EnvironmentType type = EnvironmentType.values.byName(object.name);
+
+      final platform = EnvironmentComponent(
+        position: object.position,
+        size: object.size,
+        type: type,
+      );
+      add(platform);
     }
   }
 
@@ -171,6 +179,46 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
           add(backgroundTile);
         }
+      }
+    }
+  }
+
+  void _loadTrap(ObjectGroup objectGroup) {
+    for (final object in objectGroup.objects) {
+      final TrapType type = TrapType.values.byName(object.name);
+      switch (type) {
+        case TrapType.hole:
+          final hole = Hole(
+            position: object.position,
+            size: object.size,
+          );
+          add(hole);
+          break;
+        case TrapType.saw:
+          final moveRangeTiles = object.properties.getValue("moveRangeTiles");
+          final isVerticalMove = object.properties.getValue("isVerticalMove");
+          final trap = Saw(
+            position: object.position,
+            size: object.size,
+            type: TrapType.values.byName(object.name),
+            moveRangeTiles: moveRangeTiles,
+            isVerticalMove: isVerticalMove,
+          );
+          add(trap);
+          break;
+        case TrapType.arrow:
+        case TrapType.blocks:
+        case TrapType.fallingPlatforms:
+        case TrapType.fan:
+        case TrapType.fire:
+        case TrapType.platforms:
+        case TrapType.rockHead:
+        case TrapType.sandMudIce:
+        case TrapType.spikeHead:
+        case TrapType.spikeBall:
+        case TrapType.spikes:
+        case TrapType.trampoline:
+          break;
       }
     }
   }

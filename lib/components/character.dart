@@ -2,8 +2,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pixel_adventure/components/environments/environment_block.dart';
-import 'package:pixel_adventure/components/environments/environment_platform.dart';
 import 'package:pixel_adventure/configs/character_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
@@ -17,10 +15,11 @@ class Character extends SpriteAnimationGroupComponent
   CharacterDirection _direction = CharacterDirection.none;
   final double _gravity = 9.8;
   final double _terminalVelocity = 300;
-  bool _isOnGround = false;
+  bool isOnGround = false;
   bool _hasJumped = false;
   late Vector2 _initialPosition;
   bool _gotHit = false;
+  bool _hasCompleted = false;
 
   @override
   void onLoad() {
@@ -47,7 +46,7 @@ class Character extends SpriteAnimationGroupComponent
   void update(double dt) {
     super.update(dt);
 
-    if (!_gotHit) {
+    if (!_gotHit && !_hasCompleted) {
       _updatePlayerPosition(dt);
       _applyGravity(dt);
       _updateAnimationState();
@@ -59,7 +58,7 @@ class Character extends SpriteAnimationGroupComponent
       _jump(dt);
     }
 
-    if (!_isOnGround && velocity.y > 0) {
+    if (!isOnGround && velocity.y > 0) {
       current = CharacterState.fall;
     }
 
@@ -74,7 +73,7 @@ class Character extends SpriteAnimationGroupComponent
   }
 
   void _updateAnimationState() {
-    if (!_isOnGround) {
+    if (!isOnGround) {
       if (velocity.y < 0) {
         current = CharacterState.jump;
       } else if (velocity.y > 0) {
@@ -109,58 +108,6 @@ class Character extends SpriteAnimationGroupComponent
         event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space;
 
     return false;
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-
-    final characterRect = toRect();
-    final blockRect = other.toRect();
-
-    // Xác định hướng va chạm (ngang hay dọc)
-    final overlapX = (characterRect.left < blockRect.left)
-        ? characterRect.right - blockRect.left
-        : blockRect.right - characterRect.left;
-
-    final overlapY = (characterRect.top < blockRect.top)
-        ? characterRect.bottom - blockRect.top
-        : blockRect.bottom - characterRect.top;
-
-    final isHorizontalCollision = overlapX < overlapY;
-    final fromLeft = characterRect.center.dx < blockRect.center.dx;
-    final fromTop = characterRect.center.dy < blockRect.center.dy;
-
-    // Xử lý EnvironmentBlock (chặn toàn bộ các hướng)
-    if (other is EnvironmentBlock) {
-      if (isHorizontalCollision) {
-        x = fromLeft
-            ? other.x - width // va chạm bên trái
-            : other.x + other.width; // va chạm bên phải
-        velocity.x = 0;
-      } else {
-        y = fromTop
-            ? other.y - height // va chạm từ trên
-            : other.y + other.height; // va chạm từ dưới
-        velocity.y = 0;
-
-        if (fromTop) {
-          _isOnGround = true;
-        }
-      }
-    }
-
-    // Xử lý EnvironmentPlatform (chặn 1 chiều từ trên xuống)
-    if (other is EnvironmentPlatform) {
-      final isFalling = velocity.y > 0;
-      final isOnTopOfPlatform = characterRect.bottom <= blockRect.top + 10;
-
-      if (!isHorizontalCollision && fromTop && isFalling && isOnTopOfPlatform) {
-        y = other.y - width;
-        velocity.y = 0;
-        _isOnGround = true;
-      }
-    }
   }
 
   void joystickMove(JoystickDirection direction) {
@@ -215,9 +162,9 @@ class Character extends SpriteAnimationGroupComponent
   }
 
   void _jump(double dt) {
-    if (!_isOnGround) return;
+    if (!isOnGround) return;
 
-    _isOnGround = false;
+    isOnGround = false;
 
     velocity.y = -_characterConfig.jumpForce;
   }
@@ -254,7 +201,7 @@ class Character extends SpriteAnimationGroupComponent
     position = _initialPosition - Vector2.all(32);
     velocity = Vector2.zero();
     _direction = CharacterDirection.none;
-    _isOnGround = false;
+    isOnGround = false;
     _hasJumped = false;
 
     current = CharacterState.appearing;
@@ -269,5 +216,29 @@ class Character extends SpriteAnimationGroupComponent
 
     _updateAnimationState();
     _gotHit = false;
+  }
+
+  void complete() async {
+    if (_hasCompleted) return;
+    position = position - Vector2.all(32);
+
+    _hasCompleted = true;
+
+    current = CharacterState.desapearing;
+    await Future.delayed(
+      Duration(
+        milliseconds: CharacterState.desapearing.animationSequenceAmount * 50,
+      ),
+    );
+
+    removeFromParent();
+
+    await Future.delayed(
+      Duration(
+        seconds: 2,
+      ),
+    );
+
+    game.loadOrNextLevel();
   }
 }

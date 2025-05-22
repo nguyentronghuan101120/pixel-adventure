@@ -14,27 +14,54 @@
             "scaleInEditor": 1
         },
         "level1.tmx": {
-            "expandedObjectLayers": [
-                2,
-                3
+            "expandedGroupLayers": [
+                18,
+                12,
+                14,
+                4,
+                10
             ],
-            "scale": 1.4949,
-            "selectedLayer": 2,
+            "expandedObjectLayers": [
+                9,
+                18,
+                12,
+                3,
+                11,
+                14,
+                15,
+                17,
+                16,
+                10
+            ],
+            "scale": 1.6627,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 320.0883002207506,
-                "y": 235.80172586795103
+                "x": 427.3170144944969,
+                "y": 282.97347687496244
             }
         },
         "level2.tmx": {
-            "expandedObjectLayers": [
-                3,
-                2
+            "expandedGroupLayers": [
+                9,
+                6,
+                15,
+                7
             ],
-            "scale": 1.7389,
-            "selectedLayer": 1,
+            "expandedObjectLayers": [
+                9,
+                6,
+                13,
+                14,
+                15,
+                17,
+                16,
+                10
+            ],
+            "scale": 0.8669,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 267.69796998102254,
-                "y": 225.71740755650126
+                "x": 317.79905410081903,
+                "y": 303.95662706194486
             }
         },
         "level_01.tmx": {

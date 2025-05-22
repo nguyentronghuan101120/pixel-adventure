@@ -12,14 +12,7 @@ import 'package:pixel_adventure/components/level.dart';
 
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
-  final Level level = Level(
-    player: Character(
-      characterConfig: CharacterConfig(
-        name: CharacterName.virtualGuy,
-      ),
-    ),
-    levelNumber: 2,
-  );
+  int levelNumber = 0;
 
   @override
   final CameraComponent camera = CameraComponent.withFixedResolution(
@@ -36,6 +29,21 @@ class PixelAdventure extends FlameGame
 
     await images.loadAllImages();
 
+    loadOrNextLevel();
+
+    // debugMode = true;
+  }
+
+  void loadOrNextLevel() {
+    levelNumber++;
+    final level = Level(
+      player: Character(
+        characterConfig: CharacterConfig(
+          name: CharacterName.virtualGuy,
+        ),
+      ),
+      levelNumber: 1,
+    );
     camera.world = level;
     camera.viewfinder.anchor = Anchor.topLeft;
     addAll([
@@ -45,8 +53,6 @@ class PixelAdventure extends FlameGame
     if (Platform.isIOS || Platform.isAndroid) {
       camera.viewport.add(GameJoystick(player: level.player));
     }
-
-    // debugMode = true;
   }
 
   // double timeElapsed = 0;

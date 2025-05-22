@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="62">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="309">
  <tileset firstgid="1" source="Pixel Adventure.tsx"/>
  <layer id="1" name="background" width="40" height="30">
   <data encoding="csv">
@@ -35,54 +35,76 @@
 51,52,52,52,52,52,52,0,0,0,52,52,52,52,0,0,0,52,52,52,52,0,0,0,0,0,0,0,0,0,52,52,52,52,52,52,52,52,52,53
 </data>
  </layer>
- <objectgroup id="2" name="spawnpoints">
-  <object id="1" name="character" type="character" x="48" y="288" width="32" height="32"/>
-  <object id="9" name="saw" type="trap" x="118.224" y="287.425" width="32" height="32">
-   <properties>
-    <property name="isVerticalMove" type="bool" value="true"/>
-    <property name="moveRangeTiles" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="10" name="saw" type="trap" x="231.374" y="288" width="32" height="32">
-   <properties>
-    <property name="isVerticalMove" type="bool" value="true"/>
-    <property name="moveRangeTiles" type="int" value="5"/>
-   </properties>
-  </object>
-  <object id="14" name="apple" type="fruit" x="160" y="288" width="32" height="32"/>
-  <object id="16" name="apple" type="fruit" x="192" y="288" width="32" height="32"/>
-  <object id="17" name="cherries" type="fruit" x="160" y="240" width="32" height="32"/>
-  <object id="18" name="cherries" type="fruit" x="192" y="240" width="32" height="32"/>
-  <object id="19" name="cherries" type="fruit" x="176" y="208" width="32" height="32"/>
-  <object id="30" name="pineapple" type="fruit" x="336" y="288" width="32" height="32"/>
-  <object id="31" name="pineapple" type="fruit" x="368" y="288" width="32" height="32"/>
-  <object id="32" name="pineapple" type="fruit" x="400" y="288" width="32" height="32"/>
-  <object id="35" name="pineapple" type="fruit" x="432" y="288" width="32" height="32"/>
-  <object id="36" name="melon" type="fruit" x="384" y="192" width="32" height="32"/>
-  <object id="37" name="melon" type="fruit" x="416" y="192" width="32" height="32"/>
-  <object id="39" name="melon" type="fruit" x="400" y="160" width="32" height="32"/>
-  <object id="40" name="orange" type="fruit" x="384" y="240" width="32" height="32"/>
-  <object id="41" name="orange" type="fruit" x="416" y="240" width="32" height="32"/>
-  <object id="42" name="saw" type="trap" x="384" y="288" width="48" height="48">
-   <properties>
-    <property name="isVerticalMove" type="bool" value="false"/>
-    <property name="moveRangeTiles" type="int" value="4"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="3" name="collisions">
-  <object id="43" name="ground" type="block" x="1" y="320" width="111" height="160"/>
-  <object id="44" name="ground" type="block" x="272" y="320" width="62.3293" height="160"/>
-  <object id="45" name="ground" type="block" x="480" y="320" width="160" height="160"/>
-  <object id="46" name="solid" type="block" x="512" y="288" width="30.9968" height="32"/>
-  <object id="51" name="boundary" type="block" x="1" y="-16" width="640" height="16"/>
-  <object id="52" name="boundary" type="block" x="-16" y="0" width="16" height="480"/>
-  <object id="53" name="boundary" type="block" x="1" y="480" width="640" height="16"/>
-  <object id="54" name="boundary" type="block" x="641" y="0" width="16" height="480"/>
-  <object id="55" name="ground" type="block" x="160" y="320" width="62.3293" height="160"/>
-  <object id="58" name="oneway" type="platform" x="160" y="272" width="64" height="16"/>
-  <object id="59" name="oneway" type="platform" x="384" y="272" width="64" height="16"/>
-  <object id="60" name="oneway" type="platform" x="384" y="224" width="64" height="16"/>
-  <object id="61" name="oneway" type="platform" x="336" y="320" width="144" height="16"/>
- </objectgroup>
+ <group id="15" name="block" class="environments">
+  <objectgroup id="16" name="blocks" class="environments">
+   <object id="300" name="block" type="environments" x="1" y="320" width="111" height="160"/>
+   <object id="301" name="block" type="environments" x="272" y="320" width="62.3293" height="160"/>
+   <object id="302" name="block" type="environments" x="480" y="320" width="160" height="160"/>
+   <object id="303" name="block" type="environments" x="512" y="288" width="30.9968" height="32"/>
+   <object id="304" name="block" type="environments" x="1" y="-16" width="640" height="16"/>
+   <object id="305" name="boundary" type="spawnpoints" x="-16" y="0" width="16" height="480"/>
+   <object id="306" name="block" type="environments" x="1" y="480" width="640" height="16"/>
+   <object id="307" name="block" type="environments" x="641" y="0" width="16" height="480"/>
+   <object id="308" name="block" type="environments" x="160" y="320" width="62.3293" height="160"/>
+  </objectgroup>
+  <objectgroup id="17" name="platforms">
+   <object id="296" name="platform" type="environments" x="160" y="272" width="64" height="16"/>
+   <object id="297" name="platform" type="environments" x="384" y="272" width="64" height="16"/>
+   <object id="298" name="platform" type="environments" x="384" y="224" width="64" height="16"/>
+   <object id="299" name="oneway" type="platform" x="336" y="320" width="144" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="9" name="others" visible="0">
+  <objectgroup id="10" name="spawnpoints" class="spawnpoints" visible="0">
+   <object id="260" name="spawnpoint" type="spawnpoints" x="48" y="288" width="32" height="32"/>
+  </objectgroup>
+ </group>
+ <group id="6" name="items" visible="0">
+  <objectgroup id="14" name="checkpoint" class="checkpoints">
+   <object id="295" name="checkpoint" type="checkpoints" x="576" y="256" width="64" height="64"/>
+  </objectgroup>
+  <objectgroup id="13" name="fruits">
+   <object id="281" name="apple" type="fruits" x="160" y="288" width="32" height="32"/>
+   <object id="282" name="apple" type="fruits" x="192" y="288" width="32" height="32"/>
+   <object id="283" name="cherries" type="fruits" x="160" y="240" width="32" height="32"/>
+   <object id="284" name="cherries" type="fruits" x="192" y="240" width="32" height="32"/>
+   <object id="285" name="cherries" type="fruits" x="176" y="208" width="32" height="32"/>
+   <object id="286" name="pineapple" type="fruits" x="336" y="288" width="32" height="32"/>
+   <object id="287" name="pineapple" type="fruits" x="368" y="288" width="32" height="32"/>
+   <object id="288" name="pineapple" type="fruits" x="400" y="288" width="32" height="32"/>
+   <object id="289" name="pineapple" type="fruits" x="432" y="288" width="32" height="32"/>
+   <object id="290" name="melon" type="fruits" x="384" y="192" width="32" height="32"/>
+   <object id="291" name="melon" type="fruits" x="416" y="192" width="32" height="32"/>
+   <object id="292" name="melon" type="fruits" x="400" y="160" width="32" height="32"/>
+   <object id="293" name="orange" type="fruits" x="384" y="240" width="32" height="32"/>
+   <object id="294" name="orange" type="fruits" x="416" y="240" width="32" height="32"/>
+  </objectgroup>
+ </group>
+ <group id="7" name="traps" visible="0">
+  <objectgroup id="12" name="saws">
+   <object id="264" name="saw" type="trap" x="117.127" y="287.268" width="32" height="32">
+    <properties>
+     <property name="isVerticalMove" type="bool" value="true"/>
+     <property name="moveRangeTiles" type="int" value="5"/>
+    </properties>
+   </object>
+   <object id="265" name="saw" type="trap" x="230.277" y="287.843" width="32" height="32">
+    <properties>
+     <property name="isVerticalMove" type="bool" value="true"/>
+     <property name="moveRangeTiles" type="int" value="5"/>
+    </properties>
+   </object>
+   <object id="266" name="saw" type="trap" x="382.903" y="287.843" width="48" height="48">
+    <properties>
+     <property name="isVerticalMove" type="bool" value="false"/>
+     <property name="moveRangeTiles" type="int" value="4"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup id="11" name="holes">
+   <object id="261" name="hole" type="trap" x="112" y="464" width="48" height="16"/>
+   <object id="262" name="hole" type="trap" x="224" y="464" width="48" height="16"/>
+   <object id="263" name="hole" type="trap" x="336" y="464" width="144" height="16"/>
+  </objectgroup>
+ </group>
 </map>

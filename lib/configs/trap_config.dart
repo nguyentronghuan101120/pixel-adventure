@@ -102,6 +102,14 @@ enum TrapType {
     0.1,
     32,
     32,
+  ),
+  hole(
+    "",
+    "",
+    -1,
+    -1,
+    -1,
+    -1,
   );
 
   final String value;
@@ -111,12 +119,6 @@ enum TrapType {
   final double textureSizeHeight;
   final double textureSizeWidth;
 
-  const TrapType(
-    this.value,
-    this.actionAnimation,
-    this.animationAmount,
-    this.animationStepTime,
-    this.textureSizeHeight,
-    this.textureSizeWidth
-  );
+  const TrapType(this.value, this.actionAnimation, this.animationAmount,
+      this.animationStepTime, this.textureSizeHeight, this.textureSizeWidth);
 }
