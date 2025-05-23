@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flutter/material.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/checkpoint.dart';
@@ -43,6 +44,10 @@ class Level extends World with HasGameReference<PixelAdventure> {
     for (final layer in layers) {
       final objectGroup = level.tileMap.getLayer<ObjectGroup>(layer.name);
       final classNameOfLayer = layer.class_;
+
+      // debugPrint("Layer name: ${layer.name}");
+      // debugPrint("Layer class: ${layer.class_}");
+      // debugPrint("\n===============\n");
 
       if (objectGroup == null) {
         throw Exception("No object group with name: ${layer.name}");

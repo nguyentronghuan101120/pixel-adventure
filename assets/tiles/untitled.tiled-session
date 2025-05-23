@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level2.tmx",
+    "activeFile": "level1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -15,53 +15,45 @@
         },
         "level1.tmx": {
             "expandedGroupLayers": [
-                18,
                 12,
                 14,
-                4,
-                10
+                18,
+                10,
+                4
             ],
             "expandedObjectLayers": [
-                9,
-                18,
-                12,
-                3,
-                11,
-                14,
-                15,
-                17,
-                16,
-                10
+                24,
+                19,
+                3
             ],
-            "scale": 1.6627,
-            "selectedLayer": 6,
+            "scale": 0.949,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 427.3170144944969,
-                "y": 282.97347687496244
+                "x": 301.89673340358274,
+                "y": 267.1232876712329
             }
         },
         "level2.tmx": {
             "expandedGroupLayers": [
+                15,
                 9,
                 6,
-                15,
                 7
             ],
             "expandedObjectLayers": [
-                9,
-                6,
-                13,
-                14,
-                15,
-                17,
-                16,
-                10
+                22,
+                20,
+                23,
+                24,
+                19,
+                18,
+                21
             ],
-            "scale": 0.8669,
-            "selectedLayer": 8,
+            "scale": 0.9295,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 317.79905410081903,
-                "y": 303.95662706194486
+                "x": 318.98870360408824,
+                "y": 270.575578267886
             }
         },
         "level_01.tmx": {
@@ -105,10 +97,10 @@
         "level2.tmx"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "int",
+    "property.type": "string",
     "recentFiles": [
-        "level1.tmx",
         "level2.tmx",
+        "level1.tmx",
         "level_01.tmx",
         "level_03.tmx",
         "level_01_custom.tsx",

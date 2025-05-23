@@ -15,12 +15,6 @@ class PixelAdventure extends FlameGame
   int levelNumber = 0;
 
   @override
-  final CameraComponent camera = CameraComponent.withFixedResolution(
-    width: GameConfigs.screenWidth,
-    height: GameConfigs.screenHeight,
-  );
-
-  @override
   Color backgroundColor() => const Color(0xFF211F30);
 
   @override
@@ -35,6 +29,8 @@ class PixelAdventure extends FlameGame
   }
 
   void loadOrNextLevel() {
+    removeWhere((component) => component is Level);
+
     levelNumber++;
     final level = Level(
       player: Character(
@@ -42,9 +38,15 @@ class PixelAdventure extends FlameGame
           name: CharacterName.virtualGuy,
         ),
       ),
-      levelNumber: 1,
+      levelNumber: levelNumber,
     );
-    camera.world = level;
+
+    final CameraComponent camera = CameraComponent.withFixedResolution(
+      world: level,
+      width: GameConfigs.screenWidth,
+      height: GameConfigs.screenHeight,
+    );
+
     camera.viewfinder.anchor = Anchor.topLeft;
     addAll([
       camera,
