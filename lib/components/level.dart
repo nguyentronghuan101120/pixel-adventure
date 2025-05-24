@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flutter/material.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/checkpoint.dart';

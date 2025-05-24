@@ -55,7 +55,7 @@ class Character extends SpriteAnimationGroupComponent
 
   void _updatePlayerPosition(double dt) {
     if (_hasJumped) {
-      _jump(dt);
+      jump();
     }
 
     if (!isOnGround && velocity.y > 0) {
@@ -161,7 +161,7 @@ class Character extends SpriteAnimationGroupComponent
     current = CharacterState.run;
   }
 
-  void _jump(double dt) {
+  void jump() {
     if (!isOnGround) return;
 
     isOnGround = false;

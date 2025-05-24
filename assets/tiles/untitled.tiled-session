@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level1.tmx",
+    "activeFile": "level2.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -99,8 +99,8 @@
     "project": "untitled.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "level2.tmx",
         "level1.tmx",
+        "level2.tmx",
         "level_01.tmx",
         "level_03.tmx",
         "level_01_custom.tsx",

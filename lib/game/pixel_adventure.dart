@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:pixel_adventure/components/joystick.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/configs/character_config.dart';
 import 'package:pixel_adventure/configs/game_configs.dart';
@@ -13,6 +10,12 @@ import 'package:pixel_adventure/components/level.dart';
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
   int levelNumber = 0;
+
+  final Character character = Character(
+    characterConfig: CharacterConfig(
+      name: CharacterName.virtualGuy,
+    ),
+  );
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -33,11 +36,7 @@ class PixelAdventure extends FlameGame
 
     levelNumber++;
     final level = Level(
-      player: Character(
-        characterConfig: CharacterConfig(
-          name: CharacterName.virtualGuy,
-        ),
-      ),
+      player: character,
       levelNumber: levelNumber,
     );
 
@@ -52,9 +51,6 @@ class PixelAdventure extends FlameGame
       camera,
       level,
     ]);
-    if (Platform.isIOS || Platform.isAndroid) {
-      camera.viewport.add(GameJoystick(player: level.player));
-    }
   }
 
   // double timeElapsed = 0;
