@@ -85,8 +85,8 @@ class _JoystickState extends State<Joystick> {
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  Colors.yellow[200]!,
-                  Colors.brown[700]!,
+                  Colors.yellow[200]!.withValues(alpha: 0.01),
+                  Colors.brown[700]!.withValues(alpha: 0.01),
                 ],
                 center: const Alignment(-0.3, 0.3),
                 radius: 0.95,

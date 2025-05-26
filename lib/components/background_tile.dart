@@ -1,44 +1,31 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/parallax.dart';
+import 'package:flutter/material.dart';
 import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
-class BackgroundTile extends SpriteComponent
-    with HasGameReference<PixelAdventure> {
-  final BackgroundColor color;
-  final Vector2 velocity;
-  BackgroundTile({
-    required Vector2 position,
-    required this.color,
-    required this.velocity,
-  }) : super(position: position);
+class BackgroundTile extends ParallaxComponent<PixelAdventure> {
+  BackgroundTile();
 
-  final double _scrollSpeed = 2;
+  final random = Random();
 
   @override
-  FutureOr<void> onLoad() {
-    priority = -1;
-    size = Vector2.all(65);
-    // The anchor is set to Anchor.topLeft so that the position of the BackgroundTile
-    // corresponds to its top-left corner, which makes it easier to align tiles in a grid.
-    anchor = Anchor.topLeft;
-    sprite = Sprite(game.images.fromCache("Background/${color.value}.png"));
+  FutureOr<void> onLoad() async {
+    final color =
+        BackgroundColor.values[random.nextInt(BackgroundColor.values.length)];
+
+    priority = -10;
+    size = Vector2.all(64);
+    parallax = await game.loadParallax([
+      ParallaxImageData('Background/${color.value}.png'),
+    ],
+        baseVelocity:
+            Vector2(random.nextDouble() * 100, random.nextDouble() * 100),
+        repeat: ImageRepeat.repeat,
+        fill: LayerFill.none);
     return super.onLoad();
-  }
-
-  @override
-  void update(double dt) {
-    position += velocity * dt * _scrollSpeed;
-
-    // If the tile moves below the bottom edge of the screen, wrap it to the top
-    if (position.y > game.size.y) position.y = -size.y;
-    // If the tile moves above the top edge of the screen, wrap it to the bottom
-    if (position.y < -size.y) position.y = game.size.y;
-    // If the tile moves beyond the right edge of the screen, wrap it to the left
-    if (position.x > game.size.x) position.x = -size.x;
-    // If the tile moves beyond the left edge of the screen, wrap it to the right
-    if (position.x < -size.x) position.x = game.size.x;
-    super.update(dt);
   }
 }

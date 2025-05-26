@@ -21,6 +21,8 @@ class Character extends SpriteAnimationGroupComponent
   bool _gotHit = false;
   bool _hasCompleted = false;
 
+  final double _fixedDeltatime = 1 / 60;
+
   @override
   void onLoad() {
     super.onLoad();
@@ -33,6 +35,7 @@ class Character extends SpriteAnimationGroupComponent
       ),
     );
     _initialPosition = position.clone();
+    // debugMode = true;
   }
 
   void _animationLoad() {
@@ -47,8 +50,8 @@ class Character extends SpriteAnimationGroupComponent
     super.update(dt);
 
     if (!_gotHit && !_hasCompleted) {
-      _updatePlayerPosition(dt);
-      _applyGravity(dt);
+      _updatePlayerPosition(_fixedDeltatime);
+      _applyGravity(_fixedDeltatime);
       _updateAnimationState();
     }
   }
@@ -122,9 +125,7 @@ class Character extends SpriteAnimationGroupComponent
       case JoystickDirection.downRight:
         _moveRight();
         break;
-      // case JoystickDirection.up:
-      //   _jump();
-      //   break;
+
       default:
         _stop();
     }
@@ -147,22 +148,24 @@ class Character extends SpriteAnimationGroupComponent
           amount: state.animationSequenceAmount,
           stepTime: _characterConfig.stepTime,
           textureSize: Vector2.all(isSpecialAnimation ? 96 : 32),
-          loop: !isSpecialAnimation),
+          loop: !isSpecialAnimation && state != CharacterState.hit),
     );
   }
 
   void _moveLeft() {
+    if (_gotHit) return;
     _direction = CharacterDirection.left;
     velocity.x = -_characterConfig.speed;
   }
 
   void _moveRight() {
+    if (_gotHit) return;
     velocity.x = _characterConfig.speed;
     current = CharacterState.run;
   }
 
   void jump() {
-    if (!isOnGround) return;
+    if (!isOnGround || _gotHit) return;
 
     isOnGround = false;
 
@@ -185,36 +188,42 @@ class Character extends SpriteAnimationGroupComponent
   }
 
   void respawn() async {
-    if (_gotHit) return; // Prevent overlapping respawns
-    position = position - Vector2.all(32);
+    // If got hit, do nothing
+    if (_gotHit) return;
+
+    // Set the character to the hit state
     _gotHit = true;
+
+    // Start animation
+    current = CharacterState.hit;
+
+    // Wait for the animation to complete
+    await animationTicker?.completed;
+
+    // Move character to the top of the response animation because it's size is 64
+    position = position - Vector2.all(32);
 
     current = CharacterState.desapearing;
 
-    await Future.delayed(
-      Duration(
-        milliseconds: CharacterState.desapearing.animationSequenceAmount * 50,
-      ),
-    );
+    await animationTicker?.completed;
 
     // Reset position and state
     position = _initialPosition - Vector2.all(32);
-    velocity = Vector2.zero();
-    _direction = CharacterDirection.none;
-    isOnGround = false;
-    _hasJumped = false;
-
     current = CharacterState.appearing;
-    scale.x = 1;
-    await Future.delayed(
-      Duration(
-        milliseconds: CharacterState.appearing.animationSequenceAmount * 50,
-      ),
-    );
+
+    await animationTicker?.completed;
 
     position = _initialPosition;
 
-    _updateAnimationState();
+    // Show the character again
+    current = CharacterState.idle;
+
+    // Reset direction and velocity
+    _direction = CharacterDirection.right;
+    // If user jump and got hit, the character will jump when respawn, so we need to reset the velocity
+    velocity = Vector2.zero();
+
+    // Reset hit state
     _gotHit = false;
   }
 
@@ -240,5 +249,9 @@ class Character extends SpriteAnimationGroupComponent
     );
 
     game.loadOrNextLevel();
+
+    _hasCompleted = false;
+
+    _direction = CharacterDirection.right;
   }
 }

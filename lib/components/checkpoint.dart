@@ -49,9 +49,10 @@ class Checkpoint extends SpriteAnimationGroupComponent
       other.complete();
 
       current = CheckpointStatus.out;
-      await Future.delayed(Duration(milliseconds: CheckpointStatus.out.animationSequenceAmount * 50));
-      current = CheckpointStatus.idle;
 
+      await animationTicker?.completed;
+
+      current = CheckpointStatus.idle;
     }
 
     super.onCollisionStart(intersectionPoints, other);

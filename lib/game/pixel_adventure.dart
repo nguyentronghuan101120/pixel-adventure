@@ -9,7 +9,7 @@ import 'package:pixel_adventure/components/level.dart';
 
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
-  int levelNumber = 0;
+  int levelNumber = 1;
 
   final Character character = Character(
     characterConfig: CharacterConfig(
@@ -54,7 +54,7 @@ class PixelAdventure extends FlameGame
   }
 
   // double timeElapsed = 0;
-  // static const timePerFrame = 1 / 60;
+  // static const timePerFrame = 1 / 15;
   // @override
   // void updateTree(double dt) {
   //   timeElapsed += dt;

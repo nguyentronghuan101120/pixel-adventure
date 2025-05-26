@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pixel_adventure/gen/assets.gen.dart';
 
-class JumpButton extends StatelessWidget {
+class JumpButton extends StatefulWidget {
   final VoidCallback onJump;
   const JumpButton({super.key, required this.onJump});
+
+  @override
+  State<JumpButton> createState() => _JumpButtonState();
+}
+
+class _JumpButtonState extends State<JumpButton> {
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -11,42 +19,43 @@ class JumpButton extends StatelessWidget {
       child: Align(
         alignment: Alignment.bottomRight,
         child: GestureDetector(
-          onTap: onJump,
+          onTapDown: (_) {
+            setState(() {
+              isPressed = true;
+            });
+            widget.onJump();
+          },
+          onTapUp: (_) {
+            setState(() {
+              isPressed = false;
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              isPressed = false;
+            });
+          },
           child: Container(
             width: 128,
             height: 128,
             decoration: BoxDecoration(
-              color: Colors.yellow[200],
+              color: isPressed
+                  ? Colors.yellow[400]!.withValues(alpha: 0.3)
+                  : Colors.yellow[200]!.withValues(alpha: 0.01),
               border: Border.all(color: Colors.brown, width: 6),
               borderRadius: BorderRadius.circular(32),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.brown.withValues(alpha: 0.5),
-                  offset: Offset(6, 8),
+                  color: Colors.brown.withValues(alpha: 0.1),
+                  offset: Offset(isPressed ? 2 : 6, isPressed ? 4 : 8),
                   blurRadius: 0,
                   spreadRadius: 0,
                 ),
               ],
             ),
-            child: Center(
-              child: Text(
-                'JUMP',
-                style: TextStyle(
-                  fontFamily:
-                      'PressStart2P', // Use a pixel/retro font if available
-                  fontSize: 24,
-                  color: Colors.brown[900],
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                  shadows: [
-                    Shadow(
-                      color: Colors.white,
-                      offset: Offset(2, 2),
-                      blurRadius: 0,
-                    ),
-                  ],
-                ),
-              ),
+            child: RotatedBox(
+              quarterTurns: -1,
+              child: Assets.images.hud.jumpButton.image(),
             ),
           ),
         ),

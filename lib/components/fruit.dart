@@ -54,7 +54,7 @@ class Fruit extends SpriteAnimationComponent
             loop: false),
       );
 
-      await Future.delayed(const Duration(milliseconds: 350));
+      await animationTicker?.completed;
 
       removeFromParent();
     }

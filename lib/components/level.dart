@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
@@ -9,7 +7,6 @@ import 'package:pixel_adventure/components/environment.dart';
 import 'package:pixel_adventure/components/fruit.dart';
 import 'package:pixel_adventure/components/traps/hole.dart';
 import 'package:pixel_adventure/components/traps/saw.dart';
-import 'package:pixel_adventure/configs/background_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
 import 'package:pixel_adventure/configs/item_config.dart';
@@ -30,6 +27,7 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
   @override
   void onLoad() async {
+
     level = await TiledComponent.load(
       'level$levelNumber.tmx',
       Vector2.all(16),
@@ -119,35 +117,11 @@ class Level extends World with HasGameReference<PixelAdventure> {
   }
 
   void _createBackground() {
-    final double tileSize = 64;
-
-    final numberOfTilesX = (game.size.x / tileSize).ceil() + 2;
-    final numberOfTilesY = (game.size.y / tileSize).ceil() + 2;
-    final random = Random();
-
     final background = level.tileMap.getLayer('background');
     if (background != null) {
-      final backgroundColor = background.properties.getValue('backgroundColor');
+      final backgroundTile = BackgroundTile();
 
-      if (backgroundColor == null) return;
-
-      // Generate a single random direction vector for all tiles
-      final direction = Vector2(
-        (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
-        (random.nextBool() ? 1 : -1) * (random.nextDouble() * 20),
-      );
-
-      for (int x = 0; x < numberOfTilesX; x++) {
-        for (int y = 0; y < numberOfTilesY; y++) {
-          final backgroundTile = BackgroundTile(
-            color: BackgroundColor.values.byName(backgroundColor),
-            position: Vector2(x * tileSize.toDouble(), y * tileSize.toDouble()),
-            velocity: direction,
-          );
-
-          add(backgroundTile);
-        }
-      }
+      add(backgroundTile);
     }
   }
 
