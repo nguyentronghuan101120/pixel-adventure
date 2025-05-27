@@ -1,8 +1,10 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pixel_adventure/configs/character_config.dart';
+import 'package:pixel_adventure/configs/sound_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class Character extends SpriteAnimationGroupComponent
@@ -22,6 +24,8 @@ class Character extends SpriteAnimationGroupComponent
   bool _hasCompleted = false;
 
   final double _fixedDeltatime = 1 / 60;
+
+  // CharacterState _previousState = CharacterState.idle;
 
   @override
   void onLoad() {
@@ -48,6 +52,27 @@ class Character extends SpriteAnimationGroupComponent
   @override
   void update(double dt) {
     super.update(dt);
+
+    // if (game.soundConfig.hasSound && current != _previousState) {
+    //   switch (current) {
+    //     case CharacterState.jump:
+    //       FlameAudio.play(SoundName.jump.value,
+    //           volume: game.soundConfig.volume);
+    //       break;
+    //     case CharacterState.hit:
+    //       FlameAudio.play(SoundName.hit.value, volume: game.soundConfig.volume);
+    //       break;
+    //     case CharacterState.complete:
+    //       FlameAudio.play(SoundName.complete.value,
+    //           volume: game.soundConfig.volume);
+    //       break;
+    //     case CharacterState.collect:
+    //       FlameAudio.play(SoundName.collect.value,
+    //           volume: game.soundConfig.volume);
+    //       break;
+    //   }
+    //   _previousState = current;
+    // }
 
     if (!_gotHit && !_hasCompleted) {
       _updatePlayerPosition(_fixedDeltatime);
@@ -166,7 +191,7 @@ class Character extends SpriteAnimationGroupComponent
 
   void jump() {
     if (!isOnGround || _gotHit) return;
-
+    FlameAudio.play(SoundName.jump.value, volume: game.soundConfig.volume);
     isOnGround = false;
 
     velocity.y = -_characterConfig.jumpForce;
@@ -190,6 +215,8 @@ class Character extends SpriteAnimationGroupComponent
   void respawn() async {
     // If got hit, do nothing
     if (_gotHit) return;
+
+    SoundName.hit.play(game.soundConfig);
 
     // Set the character to the hit state
     _gotHit = true;
@@ -229,6 +256,8 @@ class Character extends SpriteAnimationGroupComponent
 
   void complete() async {
     if (_hasCompleted) return;
+
+    SoundName.complete.play(game.soundConfig);
     position = position - Vector2.all(32);
 
     _hasCompleted = true;

@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:pixel_adventure/components/character.dart';
+import 'package:pixel_adventure/configs/character_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
+import 'package:pixel_adventure/configs/sound_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class Fruit extends SpriteAnimationComponent
@@ -43,6 +46,8 @@ class Fruit extends SpriteAnimationComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) async {
     if (other is Character) {
+      SoundName.collect.play(game.soundConfig); 
+
       animation = SpriteAnimation.fromFrameData(
         game.images.fromCache(
           'Items/Fruits/Collected.png',
@@ -55,6 +60,7 @@ class Fruit extends SpriteAnimationComponent
       );
 
       await animationTicker?.completed;
+
 
       removeFromParent();
     }

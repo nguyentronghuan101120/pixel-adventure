@@ -6,10 +6,13 @@ import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/configs/character_config.dart';
 import 'package:pixel_adventure/configs/game_configs.dart';
 import 'package:pixel_adventure/components/level.dart';
+import 'package:pixel_adventure/configs/sound_config.dart';
 
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
-  int levelNumber = 1;
+  int levelNumber = 0;
+
+  SoundConfig soundConfig = SoundConfig();
 
   final Character character = Character(
     characterConfig: CharacterConfig(
