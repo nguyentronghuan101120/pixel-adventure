@@ -3,4 +3,5 @@ enum LevelEntities {
   spawnpoint,
   trap,
   item,
+  enemy,
 }

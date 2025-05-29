@@ -3,10 +3,12 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/character.dart';
 import 'package:pixel_adventure/components/checkpoint.dart';
+import 'package:pixel_adventure/components/enemy.dart';
 import 'package:pixel_adventure/components/environment.dart';
 import 'package:pixel_adventure/components/fruit.dart';
 import 'package:pixel_adventure/components/traps/hole.dart';
 import 'package:pixel_adventure/components/traps/saw.dart';
+import 'package:pixel_adventure/configs/enemy_config.dart';
 import 'package:pixel_adventure/configs/enviroment_config.dart';
 import 'package:pixel_adventure/configs/fruit_config.dart';
 import 'package:pixel_adventure/configs/item_config.dart';
@@ -27,7 +29,6 @@ class Level extends World with HasGameReference<PixelAdventure> {
 
   @override
   void onLoad() async {
-
     level = await TiledComponent.load(
       'level$levelNumber.tmx',
       Vector2.all(16),
@@ -66,6 +67,9 @@ class Level extends World with HasGameReference<PixelAdventure> {
           break;
         case LevelEntities.item:
           _loadItem(objectGroup);
+          break;
+        case LevelEntities.enemy:
+          _loadEnemy(objectGroup);
           break;
       }
     }
@@ -162,6 +166,19 @@ class Level extends World with HasGameReference<PixelAdventure> {
         case TrapType.trampoline:
           break;
       }
+    }
+  }
+
+  void _loadEnemy(ObjectGroup objectGroup) {
+    for (final object in objectGroup.objects) {
+      final EnemyType type = EnemyType.values.byName(object.name);
+      final enemy = Enemy(
+        position: object.position,
+        size: object.size,
+        type: type,
+        moveRangeTiles: object.properties.getValue("moveRangeTiles"),
+      );
+      add(enemy);
     }
   }
 }

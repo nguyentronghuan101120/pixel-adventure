@@ -10,7 +10,7 @@ import 'package:pixel_adventure/configs/sound_config.dart';
 
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
-  int levelNumber = 0;
+  int levelNumber = 2;
 
   SoundConfig soundConfig = SoundConfig();
 

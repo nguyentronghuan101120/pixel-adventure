@@ -70,6 +70,8 @@ flutter:
     - assets/images/Background/
     - assets/images/Items/Fruits/
     - assets/images/Traps/Saw/
+    - assets/images/Traps/Spikes/
+    - assets/images/Traps/Rock Head/
     - assets/images/Main Characters/Ninja Frog/
     - assets/images/Main Characters/Pink Man/
     - assets/images/Main Characters/Virtual Guy/
@@ -79,6 +81,27 @@ flutter:
     - assets/images/Items/Checkpoints/Checkpoint/
     - assets/images/hud/
     - assets/audio/
+    - assets/images/custom/
+    - assets/images/Enemies/AngryPig/
+    - assets/images/Enemies/Bat/
+    - assets/images/Enemies/Bee/
+    - assets/images/Enemies/BlueBird/
+    - assets/images/Enemies/Bunny/
+    - assets/images/Enemies/Chameleon/
+    - assets/images/Enemies/Chicken/
+    - assets/images/Enemies/Duck/
+    - assets/images/Enemies/FatBird/
+    - assets/images/Enemies/Ghost/
+    - assets/images/Enemies/Mushroom/
+    - assets/images/Enemies/Plant/
+    - assets/images/Enemies/Radish/
+    - assets/images/Enemies/Rino/
+    - assets/images/Enemies/Rocks/
+    - assets/images/Enemies/Skull/
+    - assets/images/Enemies/Slime/
+    - assets/images/Enemies/Snail/
+    - assets/images/Enemies/Trunk/
+    - assets/images/Enemies/Turtle/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

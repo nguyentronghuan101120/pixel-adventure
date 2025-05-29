@@ -3,13 +3,31 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level1.tmx",
+    "activeFile": "level3.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Boxes.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Idle.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Pixel Adventure.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "boxes.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -17,14 +35,14 @@
             "expandedGroupLayers": [
                 4,
                 10,
-                14,
                 18,
-                12
+                12,
+                14
             ],
             "expandedObjectLayers": [
+                24,
                 3,
-                19,
-                24
+                19
             ],
             "scale": 0.949,
             "selectedLayer": 3,
@@ -35,26 +53,65 @@
         },
         "level2.tmx": {
             "expandedGroupLayers": [
-                6,
+                25,
                 9,
+                6,
                 15,
                 7
             ],
             "expandedObjectLayers": [
-                22,
-                23,
                 20,
                 18,
                 21,
-                19,
-                24
+                22,
+                23,
+                24,
+                19
             ],
-            "scale": 0.9295,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 663.259817105971,
-                "y": 421.1941904249597
+                "x": 440.75,
+                "y": 326.25
             }
+        },
+        "level3.tmx": {
+            "expandedObjectLayers": [
+                10,
+                8,
+                12,
+                9,
+                11,
+                13,
+                7
+            ],
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 310.3333333333333,
+                "y": 198.33333333333331
+            }
+        },
+        "level3.tmx#Boxes": {
+            "dynamicWrapping": false,
+            "scaleInEditor": 1
+        },
+        "level3.tmx#Idle": {
+            "dynamicWrapping": false
+        },
+        "level3.tmx#Pixel Adventure": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level3.tmx#Traps": {
+            "dynamicWrapping": false,
+            "scaleInEditor": 1
+        },
+        "level3.tmx#spikes": {
+            "scaleInEditor": 1
+        },
+        "level3.tmx#traps": {
+            "dynamicWrapping": true
         },
         "level_01.tmx": {
             "scale": 1.0673,
@@ -83,9 +140,15 @@
                 "x": 844.569288389513,
                 "y": 732.2097378277152
             }
+        },
+        "traps.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
-    "last.imagePath": "/Users/huannguyen/Documents/Flutter projects/pixel_adventure/assets/images/Terrain",
+    "last.externalTilesetPath": "/Users/huannguyen/Documents/Flutter projects/pixel_adventure/assets/tiles",
+    "last.imagePath": "/Users/huannguyen/Documents/Flutter projects/pixel_adventure/assets/images/Traps/Rock Head",
     "map.fixedSize": true,
     "map.height": 30,
     "map.lastUsedFormat": "tmx",
@@ -94,22 +157,33 @@
     "map.width": 40,
     "openFiles": [
         "level1.tmx",
-        "level2.tmx"
+        "level2.tmx",
+        "level3.tmx",
+        "traps.tsx",
+        "boxes.tsx"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "string",
+    "property.type": "int",
     "recentFiles": [
-        "level2.tmx",
         "level1.tmx",
+        "level2.tmx",
+        "traps.tsx",
+        "boxes.tsx",
+        "Pixel Adventure.tsx",
+        "level3.tmx",
+        "Idle.tsx",
         "level_01.tmx",
         "level_03.tmx",
         "level_01_custom.tsx",
-        "level_01_custom.tmx",
-        "Pixel Adventure.tsx"
+        "level_01_custom.tmx"
     ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
+    "tileset.spacing": 0,
     "tileset.tileSize": {
         "height": 16,
         "width": 16
-    }
+    },
+    "tileset.type": 1
 }
