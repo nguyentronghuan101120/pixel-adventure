@@ -1,9 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pixel_adventure/configs/character_config.dart';
+import 'package:pixel_adventure/configs/game_overlay_config.dart';
 import 'package:pixel_adventure/configs/sound_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
@@ -191,7 +191,7 @@ class Character extends SpriteAnimationGroupComponent
 
   void jump() {
     if (!isOnGround || _gotHit) return;
-    FlameAudio.play(SoundName.jump.value, volume: game.soundConfig.volume);
+    SoundName.jump.play(game.soundConfig);
     isOnGround = false;
 
     velocity.y = -_characterConfig.jumpForce;
@@ -255,19 +255,15 @@ class Character extends SpriteAnimationGroupComponent
   }
 
   void complete() async {
-    if (_hasCompleted) return;
+    _hasCompleted = true;
+
+    await game.markLevelAsCompleted(game.currentLevel);
 
     SoundName.complete.play(game.soundConfig);
     position = position - Vector2.all(32);
 
-    _hasCompleted = true;
-
     current = CharacterState.desapearing;
-    await Future.delayed(
-      Duration(
-        milliseconds: CharacterState.desapearing.animationSequenceAmount * 50,
-      ),
-    );
+    await animationTicker?.completed;
 
     removeFromParent();
 
@@ -277,7 +273,9 @@ class Character extends SpriteAnimationGroupComponent
       ),
     );
 
-    game.loadOrNextLevel();
+    if (_hasCompleted) {
+      game.overlays.add(GameOverlay.gameComplete.name);
+    }
 
     _hasCompleted = false;
 

@@ -15,6 +15,7 @@ import 'package:pixel_adventure/configs/item_config.dart';
 import 'package:pixel_adventure/configs/level_configs.dart';
 import 'package:pixel_adventure/configs/trap_config.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
+import 'package:pixel_adventure/configs/game_overlay_config.dart';
 
 class Level extends World with HasGameReference<PixelAdventure> {
   late TiledComponent level;
@@ -35,6 +36,7 @@ class Level extends World with HasGameReference<PixelAdventure> {
     );
     add(level);
     _createBackground();
+    game.overlays.add(GameOverlay.backButton.name);
 
     final layers = level.tileMap.map.layers
         .where((layer) => layer.type == LayerType.objectGroup);

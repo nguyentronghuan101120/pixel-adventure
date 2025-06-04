@@ -44,7 +44,7 @@ class Fruit extends SpriteAnimationComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) async {
     if (other is Character) {
-      SoundName.collect.play(game.soundConfig); 
+      SoundName.collect.play(game.soundConfig);
 
       animation = SpriteAnimation.fromFrameData(
         game.images.fromCache(
@@ -58,7 +58,6 @@ class Fruit extends SpriteAnimationComponent
       );
 
       await animationTicker?.completed;
-
 
       removeFromParent();
     }

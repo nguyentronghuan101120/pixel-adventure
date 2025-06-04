@@ -4,7 +4,8 @@ enum SoundName {
   jump('jump.wav'),
   hit('hit.wav'),
   collect('collect.wav'),
-  complete('complete.wav');
+  complete('complete.wav'),
+  background('background.mp3');
 
   final String value;
 
@@ -27,4 +28,14 @@ class SoundConfig {
     this.hasSound = true,
     this.volume = 1.0,
   });
+
+  SoundConfig copyWith({
+    bool? hasSound,
+    double? volume,
+  }) {
+    return SoundConfig(
+      hasSound: hasSound ?? this.hasSound,
+      volume: volume ?? this.volume,
+    );
+  }
 }
