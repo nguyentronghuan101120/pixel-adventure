@@ -25,7 +25,7 @@ class SoundConfig {
   final double volume;
 
   SoundConfig({
-    this.hasSound = true,
+    this.hasSound = false,
     this.volume = 1.0,
   });
 

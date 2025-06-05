@@ -32,6 +32,18 @@
                 "--web-renderer",
                 "canvaskit"
             ]
+        },
+        {
+            "name": "pixel_adventure (chrome)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-renderer",
+                "canvaskit"
+            ]
         }
     ]
 }

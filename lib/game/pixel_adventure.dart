@@ -42,6 +42,9 @@ class PixelAdventure extends FlameGame
     // Initialize sound based on saved preference
     soundConfig =
         soundConfig.copyWith(hasSound: _levelProgressService.isSoundEnabled());
+  }
+
+  void playBackgroundMusic() {
     if (soundConfig.hasSound) {
       FlameAudio.bgm
           .play(SoundName.background.value, volume: soundConfig.volume);

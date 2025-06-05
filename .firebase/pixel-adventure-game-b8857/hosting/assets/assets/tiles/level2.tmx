@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="393">
+ <properties>
+  <property name="backgroundColor" value="gray"/>
+ </properties>
+ <tileset firstgid="1" source="Pixel Adventure.tsx"/>
+ <layer id="1" name="background" width="40" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,41,41,42,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,40,41,41,42,0,0,0,0,0,0,0,0,0,0,40,41,41,42,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,37,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,58,59,0,0,0,0,0,0,
+7,8,8,8,8,8,9,0,0,0,7,8,8,9,0,0,0,7,8,8,9,41,41,41,41,41,41,41,41,41,7,8,8,8,8,8,8,8,8,9,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+29,30,30,30,30,30,31,0,0,0,29,30,30,31,0,0,0,29,30,30,31,0,0,0,0,0,0,0,0,0,29,30,30,30,30,30,30,30,30,31,
+51,52,52,52,52,52,53,0,0,0,51,52,52,53,0,0,0,51,52,52,53,0,0,0,0,0,0,0,0,0,51,52,52,52,52,52,52,52,52,53
+</data>
+ </layer>
+ <objectgroup id="18" name="item_checkpoint" class="item" visible="0">
+  <object id="392" name="checkpoint" type="checkpoint" x="576" y="256" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="19" name="item_fruit" class="item" visible="0">
+  <object id="375" name="apple" type="fruit" x="160" y="288" width="32" height="32"/>
+  <object id="376" name="apple" type="fruit" x="192" y="288" width="32" height="32"/>
+  <object id="377" name="cherries" type="fruit" x="160" y="240" width="32" height="32"/>
+  <object id="378" name="cherries" type="fruit" x="192" y="240" width="32" height="32"/>
+  <object id="379" name="cherries" type="fruit" x="176" y="208" width="32" height="32"/>
+  <object id="380" name="pineapple" type="fruit" x="336" y="288" width="32" height="32"/>
+  <object id="381" name="pineapple" type="fruit" x="368" y="288" width="32" height="32"/>
+  <object id="382" name="pineapple" type="fruit" x="400" y="288" width="32" height="32"/>
+  <object id="383" name="pineapple" type="fruit" x="432" y="288" width="32" height="32"/>
+  <object id="384" name="melon" type="fruit" x="384" y="192" width="32" height="32"/>
+  <object id="385" name="melon" type="fruit" x="416" y="192" width="32" height="32"/>
+  <object id="386" name="melon" type="fruit" x="400" y="160" width="32" height="32"/>
+  <object id="387" name="orange" type="fruit" x="384" y="240" width="32" height="32"/>
+  <object id="388" name="orange" type="fruit" x="416" y="240" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="20" name="trap_hole" class="trap" visible="0">
+  <object id="310" name="hole" type="trap" x="112" y="464" width="48" height="16"/>
+  <object id="311" name="hole" type="trap" x="224" y="464" width="48" height="16"/>
+  <object id="312" name="hole" type="trap" x="336" y="464" width="144" height="16"/>
+ </objectgroup>
+ <objectgroup id="21" name="trap_saw" class="trap" visible="0">
+  <object id="322" name="saw" type="trap" x="117.377" y="287.562" width="32" height="32">
+   <properties>
+    <property name="isVerticalMove" type="bool" value="true"/>
+    <property name="moveRangeTiles" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="323" name="saw" type="trap" x="230.527" y="288.137" width="32" height="32">
+   <properties>
+    <property name="isVerticalMove" type="bool" value="true"/>
+    <property name="moveRangeTiles" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="324" name="saw" type="trap" x="383.153" y="288.137" width="48" height="48">
+   <properties>
+    <property name="isVerticalMove" type="bool" value="false"/>
+    <property name="moveRangeTiles" type="int" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="22" name="env_platform" class="env" visible="0">
+  <object id="343" name="platform" type="environments" x="160" y="272" width="64" height="16"/>
+  <object id="344" name="platform" type="environments" x="384" y="272" width="64" height="16"/>
+  <object id="345" name="platform" type="environments" x="384" y="224" width="64" height="16"/>
+  <object id="346" name="platform" type="platform" x="336" y="320" width="144" height="16"/>
+ </objectgroup>
+ <objectgroup id="23" name="env_block" class="env" visible="0">
+  <object id="334" name="block" type="environments" x="1" y="320" width="111" height="160"/>
+  <object id="335" name="block" type="environments" x="272" y="320" width="62.3293" height="160"/>
+  <object id="336" name="block" type="environments" x="480" y="320" width="160" height="160"/>
+  <object id="337" name="block" type="environments" x="512" y="288" width="30.9968" height="32"/>
+  <object id="338" name="block" x="1" y="-16" width="640" height="16"/>
+  <object id="339" name="block" x="-16" y="0" width="16" height="480"/>
+  <object id="340" name="block" x="1" y="480" width="640" height="16"/>
+  <object id="341" name="block" x="641" y="0" width="16" height="480"/>
+  <object id="342" name="block" type="environments" x="160" y="320" width="62.3293" height="160"/>
+ </objectgroup>
+ <objectgroup id="24" name="spawnpoint" class="spawnpoint" visible="0">
+  <object id="309" name="spawnpoint" type="spawnpoint" x="48" y="288" width="32" height="32"/>
+ </objectgroup>
+</map>

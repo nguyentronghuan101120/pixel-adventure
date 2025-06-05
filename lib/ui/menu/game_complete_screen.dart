@@ -152,15 +152,17 @@ class _GameCompleteScreenState extends State<GameCompleteScreen>
                                 },
                               ),
                               if (widget.game.currentLevel <
-                                  widget.game.levelNumbers.length)
+                                  widget.game.levelNumbers.length) ...[
+                                const SizedBox(height: 16),
                                 MenuButton(
                                   menuType: MenuType.next,
                                   onPressed: () {
                                     widget.game.nextLevel();
                                     widget.game.overlays
                                         .remove('GameCompleteScreen');
-                                },
-                              ),
+                                  },
+                                )
+                              ],
                               const SizedBox(height: 16),
                               MenuButton(
                                 menuType: MenuType.menu,

@@ -69,7 +69,7 @@ class LevelProgressService {
   }
 
   bool isSoundEnabled() {
-    return _prefs.getBool(_soundEnabledKey) ?? true; // Default to true
+    return _prefs.getBool(_soundEnabledKey) ?? false; // Default to true
   }
 
   Future<void> setSoundEnabled(bool enabled) async {

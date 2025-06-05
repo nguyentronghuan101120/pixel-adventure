@@ -4,6 +4,7 @@ import 'package:pixel_adventure/ui/menu/widgets/animated_background.dart';
 import 'package:pixel_adventure/ui/menu/widgets/menu_button.dart';
 import 'package:pixel_adventure/gen/fonts.gen.dart';
 import 'package:pixel_adventure/ui/menu/widgets/menu_type.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class MenuScreen extends StatefulWidget {
   final PixelAdventure game;
@@ -16,11 +17,21 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   bool isSoundOn = true;
+  String appVersion = '';
 
   @override
   void initState() {
     super.initState();
     isSoundOn = widget.game.soundConfig.hasSound;
+    widget.game.playBackgroundMusic();
+    _getAppVersion();
+  }
+
+  Future<void> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = 'v${packageInfo.version}';
+    });
   }
 
   @override
@@ -90,6 +101,15 @@ class _MenuScreenState extends State<MenuScreen> {
                           },
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      appVersion,
+                      style: TextStyle(
+                        fontFamily: FontFamily.pixelMania,
+                        fontSize: 16,
+                        color: Colors.white.withValues(alpha: 0.5),
+                      ),
                     ),
                   ],
                 ),
